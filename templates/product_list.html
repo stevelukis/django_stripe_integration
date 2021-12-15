@@ -26,44 +26,14 @@
                         <h6>{{ product.name }}</h6>
                     </div>
                     <div class="card-body">
-                        <h6>${{ product.price }}<span
-                                class="mx-1 fw-lighter fst-italic text-muted">+2.9% Stripe fee</span></h6>
-                        <button class="btn btn-primary" onclick="onBuyClick({{ product.id }})">Buy</button>
+                        <h6>${{ product.price }}</h6>
+                        <button class="btn btn-primary">Buy</button>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-    let stripe;
-    fetch("/stripe-config/")
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            console.log(data);
-            stripe = Stripe(data.publicKey);
-        })
-
-    const onBuyClick = (product) => {
-        if (!stripe) {
-            console.log("Stripe is not ready yet!")
-            return
-        }
-        console.log(product)
-        fetch(`/orders/checkout/${product}/`)
-            .then(res => (
-                res.json()
-            ))
-            .then(data => (
-                stripe.redirectToCheckout({sessionId: data.sessionId})
-            ))
-            .then(res => {
-                console.log(res);
-            })
-    }
 </script>
 </body>
 </html>

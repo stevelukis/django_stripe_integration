@@ -23,7 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', include('product.urls')),
     path('orders/', include('orders.urls')),
-    path('stripe-config/', views.StripeConfig.as_view()),
 ]
 
 if settings.DEBUG:
