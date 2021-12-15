@@ -54,7 +54,7 @@
             return
         }
         console.log(product)
-        fetch(`/stripe-checkout-session/${product}/`)
+        fetch(`/orders/checkout/${product}/`)
             .then(res => (
                 res.json()
             ))

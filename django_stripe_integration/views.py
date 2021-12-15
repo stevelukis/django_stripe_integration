@@ -1,11 +1,9 @@
-import stripe
 from django.http import JsonResponse
-from rest_framework import generics
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework import generics
 
-from django_stripe_integration import settings, helper
-from product.models import Product
+from django_stripe_integration import settings
 
 
 @method_decorator(csrf_exempt, name='dispatch')
