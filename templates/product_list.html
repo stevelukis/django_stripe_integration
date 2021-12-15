@@ -17,11 +17,11 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-lg-3">
-            {% for product in object_list %}
-
+        {% for product in object_list %}
+            <div class="col-lg-3">
                 <div class="card">
-                    <img class="card-img-top" src="{{ product.image.url }}" alt="{{ product.name }}"/>
+                    <img class="card-img-top" style="height: 200px; object-fit: contain;" src="{{ product.image.url }}"
+                         alt="{{ product.name }}"/>
                     <div class="card-header">
                         <h6>{{ product.name }}</h6>
                     </div>
@@ -31,9 +31,8 @@
                         <button class="btn btn-primary" onclick="onBuyClick({{ product.id }})">Buy</button>
                     </div>
                 </div>
-
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 <script src="https://js.stripe.com/v3/"></script>
