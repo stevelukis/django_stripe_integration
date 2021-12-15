@@ -34,7 +34,7 @@ class StripeCheckoutSession(generics.GenericAPIView):
                         'name': product.name,
                         'quantity': 1,
                         'currency': 'usd',
-                        'amount': price + helper.get_service_fee(price),
+                        'amount': int(helper.add_service_fee(price)),
                     }
                 ]
             )
