@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
                         <h6>${{ product.price }}</h6>
-                        <button class="btn btn-primary">Buy</button>
+                        <button class="btn btn-primary" onclick="onBuyClick({{ product.id }})">Buy</button>
                     </div>
                 </div>
 
@@ -35,6 +35,35 @@
         </div>
     </div>
 </div>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    let stripe;
+    fetch("/stripe-config/")
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            console.log(data);
+            stripe = Stripe(data.publicKey);
+        })
 
+    const onBuyClick = (product) => {
+        if (!stripe) {
+            console.log("Stripe is not ready yet!")
+            return
+        }
+        console.log(product)
+        fetch(`/stripe-checkout-session/${product}/`)
+            .then(res => (
+                res.json()
+            ))
+            .then(data => (
+                stripe.redirectToCheckout({sessionId: data.sessionId})
+            ))
+            .then(res => {
+                console.log(res);
+            })
+    }
+</script>
 </body>
 </html>

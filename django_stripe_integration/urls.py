@@ -17,11 +17,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from django_stripe_integration import settings
+from django_stripe_integration import settings, views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('products/', include('product.urls'))
+    path('products/', include('product.urls')),
+    path('stripe-config/', views.StripeConfig.as_view()),
+    path('stripe-checkout-session/<int:product>/', views.StripeCheckoutSession.as_view())
 ]
 
 if settings.DEBUG:
